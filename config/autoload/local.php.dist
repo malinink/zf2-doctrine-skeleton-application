@@ -1,0 +1,80 @@
+<?php
+/**
+ * Local Configuration Override
+ *
+ * This configuration override file is for overriding environment-specific and
+ * security-sensitive configuration information. Copy this file without the
+ * .dist extension at the end and populate values as needed.
+ *
+ * @NOTE: This file is ignored from Git by default with the .gitignore included
+ * in ZendSkeletonApplication. This is a good practice, as it prevents sensitive
+ * credentials from accidentally being committed into version control.
+ */
+
+return [
+    'view_manager' => [
+        'display_not_found_reason' => true,
+        'display_exceptions'       => true,
+    ],
+    /*
+     * Redis support
+     */ 
+    #'caches' => [
+    #    'redis' => [
+    #        'adapter' => [
+    #            'name'    => 'redis',
+    #            'options' => [
+    #                'ttl'    => 7200,
+    #                'server' => [
+    #                    'host' => '127.0.0.1',
+    #                    'port' => 6379,
+    #                ],
+    #                'namespace'  => 'aes',
+    #                'liboptions' => [
+    #                    'serializer' => \Redis::SERIALIZER_PHP,
+    #                ],
+    #            ],
+    #        ],
+    #        'plugins' => [
+    #            'exception_handler' => [
+    #                'throw_exceptions' => false,
+    #            ],
+    #        ],
+    #        'serializer',
+    #    ],        
+    #],
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'params' => [
+                    'user'     => '__USERNAME__',
+                    'password' => '__PASSWORD__',
+                    'dbname'   => '__DATABASE__',
+                ],
+            ],
+        ],
+        'driver' => [
+            'orm_entities' => [
+                /*
+                 * dev version
+                 */
+                'cache' => 'array',
+                /*
+                 * production
+                 */
+                #'cache'          => 'apc',
+                #'metadata_cache' => 'apc',
+                #'query_cache'    => 'redis',
+                #'result_cache'   => 'redis',                
+            ],
+        ],
+    ],
+    'lazy_services' => [
+        // directory where proxy classes will be written - default to system_get_tmp_dir()
+        'proxies_target_dir' => null,
+        // namespace of the generated proxies, default to "ProxyManagerGeneratedProxy"
+        'proxies_namespace' => null,
+        // whether the generated proxy classes should be written to disk or generated on-the-fly
+        'write_proxy_files' => false,
+    ],    
+];
